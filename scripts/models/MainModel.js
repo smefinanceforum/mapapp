@@ -55,7 +55,7 @@ var models;
                 return left[0] == right[0] ? 0 : (left[0] < right[0] ? -1 : 1);
             });
             for (var i = 0; i < regionRows.length; i++) {
-                var c = new models.SummaryItem(regionRows[i], null, 'region');
+                var c = new models.SummaryItem(regionRows[i], models.CountryIndicatorData.regionRows[regionRows[i][0]], 'region');
                 _this.countriesAndRegions.push(c);
             }
 

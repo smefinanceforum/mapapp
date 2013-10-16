@@ -69,6 +69,16 @@ var models;
                     this.SourceGov = this.parseIntValue(msmeData[19]);
                     this.SourceNonBank = this.parseIntValue(msmeData[20]);
                     this.SourceOther = this.parseIntValue(msmeData[21]);
+                    this.Gdp2005 = this.parseFloatValue(this.indData[3]);
+                    this.GdpCurrent = this.parseFloatValue(this.indData[4]);
+                    this.DomesticCredit = this.parseFloatValue(this.indData[5]);
+                    this.LendingIr = this.parseFloatValue(this.indData[6]);
+                    this.LegalRightsStrength = this.parseFloatValue(this.indData[7]);
+                    this.CreditDepth = this.parseFloatValue(this.indData[8]);
+                    this.EaseOfBusiness = this.parseFloatValue(this.indData[9]);
+                    this.DepositIr = this.parseFloatValue(this.indData[10]);
+                    this.IrSpread = this.parseFloatValue(this.indData[11]);
+                    this.LaborForce = this.parseFloatValue(this.indData[12]);
                     break;
                 case 'development':
                     this.Name = msmeData[0];
