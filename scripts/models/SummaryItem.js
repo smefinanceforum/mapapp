@@ -11,7 +11,7 @@ var models;
             switch (type) {
                 case 'country':
                     this.Name = msmeData[0];
-                    this.EnterprisesCount = this.parseIntValue(msmeData[5]);
+                    this.EnterprisesCount = this.getIntValue(msmeData[5]);
                     this.A2F = this.parseFloatValue(msmeData[10]);
                     this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[6]);
@@ -26,22 +26,22 @@ var models;
                     this.SourceGov = this.parseIntValue(msmeData[16]);
                     this.SourceNonBank = this.parseIntValue(msmeData[17]);
                     this.SourceOther = this.parseIntValue(msmeData[18]);
-                    this.Gdp2005 = this.parseIntValue(this.indData[3]);
-                    this.GdpCurrent = this.parseIntValue(this.indData[4]);
+                    this.Gdp2005 = this.getIntValue(this.indData[3]);
+                    this.GdpCurrent = this.getIntValue(this.indData[4]);
                     this.Atms = this.parseFloatValue(this.indData[5]);
-                    this.BankBranches = this.parseIntValue(this.indData[6]);
+                    this.BankBranches = this.parseFloatValue(this.indData[6]);
                     this.PosTerminals = this.parseFloatValue(this.indData[7]);
                     this.DomesticCredit = this.parseFloatValue(this.indData[8]);
                     this.LendingIr = this.parseFloatValue(this.indData[9]);
-                    this.Population = this.parseIntValue(this.indData[10]);
-                    this.PopulationAges = this.parseIntValue(this.indData[11]);
-                    this.MobileSubscriptions = this.parseIntValue(this.indData[12]);
-                    this.LaborForce = this.parseIntValue(this.indData[13]);
-                    this.EmploymentRatio = this.parseIntValue(this.indData[14]);
+                    this.Population = this.getIntValue(this.indData[10]);
+                    this.PopulationAges = this.parseFloatValue(this.indData[11]);
+                    this.MobileSubscriptions = this.parseFloatValue(this.indData[12]);
+                    this.LaborForce = this.getIntValue(this.indData[13]);
+                    this.EmploymentRatio = this.parseFloatValue(this.indData[14]);
                     this.PovertyRatio = this.parseFloatValue(this.indData[15]);
-                    this.LegalRightsStrength = this.parseIntValue(this.indData[16]);
-                    this.CreditDepth = this.parseIntValue(this.indData[17]);
-                    this.EaseOfBusiness = this.parseIntValue(this.indData[18]);
+                    this.LegalRightsStrength = this.parseFloatValue(this.indData[16]);
+                    this.CreditDepth = this.parseFloatValue(this.indData[17]);
+                    this.EaseOfBusiness = this.parseFloatValue(this.indData[18]);
                     this.LiteracyRate = this.parseFloatValue(this.indData[19]);
                     this.DepositIr = this.parseFloatValue(this.indData[20]);
                     this.Unemployment = this.parseFloatValue(this.indData[21]);
@@ -54,7 +54,7 @@ var models;
                     break;
                 case 'region':
                     this.Name = msmeData[0];
-                    this.EnterprisesCount = this.parseIntValue(msmeData[5]);
+                    this.EnterprisesCount = this.getIntValue(msmeData[5]);
                     this.A2F = this.parseFloatValue(msmeData[10]);
                     this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[6]);
@@ -69,20 +69,20 @@ var models;
                     this.SourceGov = this.parseIntValue(msmeData[19]);
                     this.SourceNonBank = this.parseIntValue(msmeData[20]);
                     this.SourceOther = this.parseIntValue(msmeData[21]);
-                    this.Gdp2005 = this.parseIntValue(this.indData[3]);
-                    this.GdpCurrent = this.parseIntValue(this.indData[4]);
+                    this.Gdp2005 = this.getIntValue(this.indData[3]);
+                    this.GdpCurrent = this.getIntValue(this.indData[4]);
                     this.DomesticCredit = this.parseFloatValue(this.indData[5]);
                     this.LendingIr = this.parseFloatValue(this.indData[6]);
-                    this.LegalRightsStrength = this.parseIntValue(this.indData[7]);
-                    this.CreditDepth = this.parseIntValue(this.indData[8]);
-                    this.EaseOfBusiness = this.parseIntValue(this.indData[9]);
+                    this.LegalRightsStrength = this.parseFloatValue(this.indData[7]);
+                    this.CreditDepth = this.parseFloatValue(this.indData[8]);
+                    this.EaseOfBusiness = this.parseFloatValue(this.indData[9]);
                     this.DepositIr = this.parseFloatValue(this.indData[10]);
                     this.IrSpread = this.parseFloatValue(this.indData[11]);
-                    this.LaborForce = this.parseIntValue(this.indData[12]);
+                    this.LaborForce = this.getIntValue(this.indData[12]);
                     break;
                 case 'development':
                     this.Name = msmeData[0];
-                    this.EnterprisesCount = this.parseIntValue(msmeData[1]);
+                    this.EnterprisesCount = this.getIntValue(msmeData[1]);
                     this.A2F = this.parseFloatValue(msmeData[2]);
                     this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[3]);
@@ -97,22 +97,22 @@ var models;
                     this.SourceGov = this.parseIntValue(msmeData[12]);
                     this.SourceNonBank = this.parseIntValue(msmeData[13]);
                     this.SourceOther = this.parseIntValue(msmeData[14]);
-                    this.Gdp2005 = this.parseIntValue(this.indData[3]);
-                    this.GdpCurrent = this.parseIntValue(this.indData[4]);
+                    this.Gdp2005 = this.getIntValue(this.indData[3]);
+                    this.GdpCurrent = this.getIntValue(this.indData[4]);
                     this.Atms = this.parseFloatValue(this.indData[5]);
-                    this.BankBranches = this.parseIntValue(this.indData[6]);
+                    this.BankBranches = this.parseFloatValue(this.indData[6]);
                     this.PosTerminals = this.parseFloatValue(this.indData[7]);
                     this.DomesticCredit = this.parseFloatValue(this.indData[8]);
                     this.LendingIr = this.parseFloatValue(this.indData[9]);
-                    this.Population = this.parseIntValue(this.indData[10]);
+                    this.Population = this.getIntValue(this.indData[10]);
                     this.PopulationAges = this.parseFloatValue(this.indData[11]);
                     this.MobileSubscriptions = this.parseFloatValue(this.indData[12]);
-                    this.LaborForce = this.parseIntValue(this.indData[13]);
+                    this.LaborForce = this.getIntValue(this.indData[13]);
                     this.EmploymentRatio = this.parseFloatValue(this.indData[14]);
                     this.PovertyRatio = this.parseFloatValue(this.indData[15]);
-                    this.LegalRightsStrength = this.parseIntValue(this.indData[16]);
+                    this.LegalRightsStrength = this.parseFloatValue(this.indData[16]);
                     this.CreditDepth = this.parseFloatValue(this.indData[17]);
-                    this.EaseOfBusiness = this.parseIntValue(this.indData[18]);
+                    this.EaseOfBusiness = this.parseFloatValue(this.indData[18]);
                     this.LiteracyRate = this.parseFloatValue(this.indData[19]);
                     this.DepositIr = this.parseFloatValue(this.indData[20]);
                     this.Unemployment = this.parseFloatValue(this.indData[21]);
@@ -142,6 +142,16 @@ var models;
                 } else {
                     return this.numberWithCommas(result.toFixed(2));
                 }
+            } else {
+                return "";
+            }
+        };
+
+        SummaryItem.prototype.getIntValue = function (obj) {
+            var result = null;
+            if (obj != "" && obj != null) {
+                result = parseInt(obj);
+                return this.numberWithCommas(result);
             } else {
                 return "";
             }
