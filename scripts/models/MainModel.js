@@ -408,51 +408,51 @@ var models;
                 str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>#MSMEs</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[5]) + "</td></tr>";
             }
             if (info[10] != null) {
-                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Access to finance as major/severe barrier</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[10]) + "</td></tr>";
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Access to finance as major/severe barrier</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[10]) + "%</td></tr>";
             }
             if ((info[6] != null) || (info[7] != null) || (info[8] != null) || (info[9] != null)) {
                 str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>Access</strong></td></tr>";
                 if (info[6] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Checking</strong></td><td style='text-align:right'>" + info[6] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Checking</strong></td><td style='text-align:right'>" + info[6] + "%</td></tr>";
                 }
                 if (info[7] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Overdraft</strong></td><td style='text-align:right'>" + info[7] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Overdraft</strong></td><td style='text-align:right'>" + info[7] + "%</td></tr>";
                 }
                 if (info[8] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Loan</strong></td><td style='text-align:right'>" + info[8] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Loan</strong></td><td style='text-align:right'>" + info[8] + "%</td></tr>";
                 }
                 if (info[9] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Access to Credit</strong></td><td style='text-align:right'>" + info[9] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Have Access to Credit</strong></td><td style='text-align:right'>" + info[9] + "%</td></tr>";
                 }
             }
             if ((info[11] != null) || (info[12] != null) || (info[13] != null) || (info[14] != null)) {
                 str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>How well served?</strong></td></tr>";
                 if (info[11] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Does not need credit %</strong></td><td style='text-align:right'>" + info[11] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Does not need credit</strong></td><td style='text-align:right'>" + info[11] + "%</td></tr>";
                 }
                 if (info[12] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Unserved %</strong></td><td style='text-align:right'>" + info[12] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Unserved</strong></td><td style='text-align:right'>" + info[12] + "%</td></tr>";
                 }
                 if (info[13] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Underserved %</strong></td><td style='text-align:right'>" + info[13] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Underserved</strong></td><td style='text-align:right'>" + info[13] + "%</td></tr>";
                 }
                 if (info[14] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Well served %</strong></td><td style='text-align:right'>" + info[14] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Well served</strong></td><td style='text-align:right'>" + info[14] + "%</td></tr>";
                 }
             }
             if ((info[15] != null) || (info[16] != null) || (info[17] != null) || (info[18] != null)) {
                 str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td colspan=2><strong>Source of Financing</strong></td></tr>";
                 if (info[15] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Private Commercial Bank as Source of Financing</strong></td><td style='text-align:right'>" + info[15] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Private Commercial Bank as Source of Financing</strong></td><td style='text-align:right'>" + info[15] + "%</td></tr>";
                 }
                 if (info[16] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>State-owned Bank and/or Govt. Agency as Source of Financing</strong></td><td style='text-align:right'>" + info[16] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>State-owned Bank and/or Govt. Agency as Source of Financing</strong></td><td style='text-align:right'>" + info[16] + "%</td></tr>";
                 }
                 if (info[17] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Non-bank Financial Institution as Source of Financing</strong></td><td style='text-align:right'>" + info[17] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Non-bank Financial Institution as Source of Financing</strong></td><td style='text-align:right'>" + info[17] + "%</td></tr>";
                 }
                 if (info[18] != null) {
-                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Other Source of Financing</strong></td><td style='text-align:right'>" + info[18] + "</td></tr>";
+                    str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td class='shift'><strong>Other Source of Financing</strong></td><td style='text-align:right'>" + info[18] + "%</td></tr>";
                 }
             }
             str += "</table>";
