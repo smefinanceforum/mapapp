@@ -126,8 +126,7 @@ var models;
             }
         }
         SummaryItem.prototype.parseIntValue = function (obj) {
-            return (obj != null) ? parseInt(obj) : null;
-            //return (obj != null) ? this.numberWithCommas(obj) : null;
+            return (obj != null) ? this.numberWithCommas(parseInt(obj)) : null;
         };
 
         SummaryItem.prototype.numberWithCommas = function (x) {
