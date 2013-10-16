@@ -11,7 +11,7 @@ var models;
             switch (type) {
                 case 'country':
                     this.Name = msmeData[0];
-                    this.EnterprisesCount = this.parseFloatValue(msmeData[5]);
+                    this.EnterprisesCount = this.parseIntValue(msmeData[5]);
                     this.A2F = this.parseFloatValue(msmeData[10]);
                     this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[6]);
@@ -54,7 +54,7 @@ var models;
                     break;
                 case 'region':
                     this.Name = msmeData[0];
-                    this.EnterprisesCount = this.parseFloatValue(msmeData[5]);
+                    this.EnterprisesCount = this.parseIntValue(msmeData[5]);
                     this.A2F = this.parseFloatValue(msmeData[10]);
                     this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[6]);
@@ -82,7 +82,7 @@ var models;
                     break;
                 case 'development':
                     this.Name = msmeData[0];
-                    this.EnterprisesCount = this.parseFloatValue(msmeData[1]);
+                    this.EnterprisesCount = this.parseIntValue(msmeData[1]);
                     this.A2F = this.parseFloatValue(msmeData[2]);
                     this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[3]);
