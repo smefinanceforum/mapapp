@@ -308,8 +308,8 @@ border-top: none;*/
 
 #bottom-middle {
     float: left;
-    padding: 0px 9px 0px 9px;
-    width: 42%;
+    padding: 0px 3px 0px 9px;
+    width: 41%;
     font-size: 1.5em;
     line-height: 28px;
     border-right: solid 1px #DDD;
@@ -319,7 +319,7 @@ border-top: none;*/
 #bottom-right {
     float: right;
     padding: 0px 0px 0px 0px;
-    width: 13%;
+    width: 15%;
 }
 
 h2 {
