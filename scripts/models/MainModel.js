@@ -272,6 +272,7 @@ var models;
 
         MainModel.prototype.showBubbles = function (zoom, map) {
             //var selector = $('#bubbleIndicator');
+            var selectedText = $('#bubbleIndicator option:selected').text();
             var isCountry = (zoom > 3);
             var id = this.bubbleIndicatorValue();
             var isBubble = (this.indicatorStyleValue() == "bubble");
@@ -356,12 +357,14 @@ var models;
                         strokeOpacity: 0,
                         scale: alpha.value * parseInt(bubble.data[alpha.index]) + scaledZoom * 4
                     });
+                    bubble.setTitle(selectedText + ": " + bubble.data[alpha.index]);
                 } else {
                     bubble.setIcon({
                         url: this.host + "images/" + chartData + "/" + bubble.data[1] + ".png",
                         scaledSize: new google.maps.Size(bubble.data[betta.index - 1] / 4 * scaledZoom, bubble.data[betta.index] / 4 * scaledZoom)
                     });
                 }
+
                 bubble.setMap(map);
             }
         };
