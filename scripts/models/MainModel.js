@@ -272,6 +272,7 @@ var models;
 
         MainModel.prototype.showBubbles = function (zoom, map) {
             //var selector = $('#bubbleIndicator');
+            var _this = this;
             var selectedText = $('#bubbleIndicator option:selected').text();
             var isCountry = (zoom > 3);
             var id = this.bubbleIndicatorValue();
@@ -357,7 +358,9 @@ var models;
                         strokeOpacity: 0,
                         scale: alpha.value * parseInt(bubble.data[alpha.index]) + scaledZoom * 4
                     });
-                    bubble.setTitle(selectedText + ": " + bubble.data[alpha.index]);
+                    if (alpha.index != undefined && bubble.data != undefined) {
+                        bubble.setTitle(selectedText + ": " + _this.numberWithCommas(bubble.data[alpha.index]));
+                    }
                 } else {
                     bubble.setIcon({
                         url: this.host + "images/" + chartData + "/" + bubble.data[1] + ".png",
