@@ -115,6 +115,10 @@ body:before {
     padding: 10px 5px 0px 5px;
 }
 
+#summary, .ui-widget select {
+    font-family: Calibri, Helvetica, sans-serif !important;
+}
+
 #panel, #shortPanel {
     position: relative;
     z-index: 5;
@@ -463,4 +467,8 @@ line-height: 15px;
     padding-left: 27px;
     color: #7D7D87;
     text-align: left;
+}
+
+.text-right {
+    text-align: right;
 }
