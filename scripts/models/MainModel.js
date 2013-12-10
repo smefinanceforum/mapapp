@@ -3,6 +3,7 @@
 ///<reference path='../typings/jqueryui/jqueryui.d.ts' />
 ///<reference path='../typings/googlemaps/google.maps.d.ts' />
 ///<reference path='../typings/highcharts/highcharts.d.ts' />
+///<reference path='../typings/sprintf/sprintf.d.ts' />
 var models;
 (function (models) {
     var MainModel = (function () {
@@ -24,6 +25,7 @@ var models;
             this.linkText = ko.observable('Show link to this page');
             this.isLinkVisible = ko.observable(false);
             var _this = this;
+
             _this.host = host;
             var countryParams = [_this.getUrlParameter('country1'), _this.getUrlParameter('country2'), _this.getUrlParameter('country3')];
 
@@ -304,12 +306,18 @@ var models;
                 switch (chartData) {
                     case "account":
                         betta.index = 21;
+                        betta.categories = ['Have Checking', 'Have Overdraft', 'Have Loan', 'Have Access to Credit'];
+                        betta.indexes = [6, 7, 8, 9];
                         break;
                     case "served":
                         betta.index = 23;
+                        betta.categories = ['Does not need credit', 'Unserved', 'Underserved', 'Well served'];
+                        betta.indexes = [10, 11, 12, 13];
                         break;
                     case "source":
                         betta.index = 25;
+                        betta.categories = ['Private Commercial Bank', 'State-owned Bank and/or Govt. Agency', 'Non-bank Financial Institution', 'Other'];
+                        betta.indexes = [14, 15, 16, 17];
                         break;
                 }
             } else {
@@ -335,12 +343,18 @@ var models;
                 switch (chartData) {
                     case "account":
                         betta.index = 30;
+                        betta.categories = ['Have Checking', 'Have Overdraft', 'Have Loan', 'Have Access to Credit'];
+                        betta.indexes = [6, 7, 8, 9];
                         break;
                     case "served":
                         betta.index = 32;
+                        betta.categories = ['Does not need credit', 'Unserved', 'Underserved', 'Well served'];
+                        betta.indexes = [10, 11, 12, 13];
                         break;
                     case "source":
                         betta.index = 34;
+                        betta.categories = ['Private Commercial Bank', 'State-owned Bank and/or Govt. Agency', 'Non-bank Financial Institution', 'Other'];
+                        betta.indexes = [18, 19, 20, 21];
                         break;
                 }
             }
@@ -366,6 +380,7 @@ var models;
                         url: this.host + "images/" + chartData + "/" + bubble.data[1] + ".png",
                         scaledSize: new google.maps.Size(bubble.data[betta.index - 1] / 4 * scaledZoom, bubble.data[betta.index] / 4 * scaledZoom)
                     });
+                    bubble.setTitle(sprintf('%s: %s%%\n%s: %s%%\n%s: %s%%\n%s: %s%%\n', betta.categories[3], bubble.data[betta.indexes[3]], betta.categories[2], bubble.data[betta.indexes[2]], betta.categories[1], bubble.data[betta.indexes[1]], betta.categories[0], bubble.data[betta.indexes[0]]));
                 }
 
                 bubble.setMap(map);
