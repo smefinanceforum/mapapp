@@ -12,6 +12,8 @@ var models;
                 case 'country':
                     this.Name = msmeData[0];
                     this.EnterprisesCount = this.getIntValue(msmeData[5]);
+                    this.DepositGap = this.getIntValue(msmeData[19]);
+                    this.CreditGap = this.getIntValue(msmeData[20]);
                     this.A2F = this.parseFloatValue(msmeData[10]);
                     this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[6]);
@@ -55,6 +57,8 @@ var models;
                 case 'region':
                     this.Name = msmeData[0];
                     this.EnterprisesCount = this.getIntValue(msmeData[5]);
+                    this.DepositGap = this.getIntValue(msmeData[25]);
+                    this.CreditGap = this.getIntValue(msmeData[23]);
                     this.A2F = this.parseFloatValue(msmeData[10]);
                     this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[6]);
@@ -98,6 +102,8 @@ var models;
                 case 'development':
                     this.Name = msmeData[0];
                     this.EnterprisesCount = this.getIntValue(msmeData[1]);
+                    this.DepositGap = this.getIntValue(msmeData[16]);
+                    this.CreditGap = this.getIntValue(msmeData[15]);
                     this.A2F = this.parseFloatValue(msmeData[2]);
                     this.A2F += (this.A2F != "" ? '%' : '');
                     this.Checking = this.parseIntValue(msmeData[3]);

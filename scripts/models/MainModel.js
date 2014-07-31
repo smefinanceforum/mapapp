@@ -285,9 +285,13 @@ var models;
             var scaledZoom = isCountry ? zoom - 3 : zoom;
             if (isCountry) {
                 switch (id) {
+                    case "creditgap":
+                        alpha.index = 20;
+                        alpha.value = 50 / 1000000;
+                        break;
                     case "gap":
                         alpha.index = 19;
-                        alpha.value = 50 / 1000000000000;
+                        alpha.value = 50 / 1000000;
                         break;
                     case "enterprise":
                         alpha.index = 5;
@@ -305,26 +309,30 @@ var models;
 
                 switch (chartData) {
                     case "account":
-                        betta.index = 21;
+                        betta.index = 22;
                         betta.categories = ['Have Checking', 'Have Overdraft', 'Have Loan', 'Have Access to Credit'];
                         betta.indexes = [6, 7, 8, 9];
                         break;
                     case "served":
-                        betta.index = 23;
+                        betta.index = 24;
                         betta.categories = ['Does not need credit', 'Unserved', 'Underserved', 'Well served'];
                         betta.indexes = [10, 11, 12, 13];
                         break;
                     case "source":
-                        betta.index = 25;
+                        betta.index = 26;
                         betta.categories = ['Private Commercial Bank', 'State-owned Bank and/or Govt. Agency', 'Non-bank Financial Institution', 'Other'];
                         betta.indexes = [14, 15, 16, 17];
                         break;
                 }
             } else {
                 switch (id) {
+                    case "creditgap":
+                        alpha.index = 23;
+                        alpha.value = 50 / 5000000;
+                        break;
                     case "gap":
                         alpha.index = 25;
-                        alpha.value = 50 / 5000000000000;
+                        alpha.value = 50 / 5000000;
                         break;
                     case "enterprise":
                         alpha.index = 5;
@@ -373,7 +381,7 @@ var models;
                         scale: alpha.value * parseInt(bubble.data[alpha.index]) + scaledZoom * 4
                     });
                     if (alpha.index != undefined && bubble.data != undefined) {
-                        bubble.setTitle(selectedText + ": " + _this.numberWithCommas(bubble.data[alpha.index]));
+                        bubble.setTitle(selectedText + ": " + _this.numberWithCommas(id == "gap" ? bubble.data[alpha.index] : bubble.data[alpha.index]));
                     }
                 } else {
                     bubble.setIcon({
@@ -427,6 +435,12 @@ var models;
             var rowNum = 1;
             if (info[5] != null) {
                 str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>#MSMEs</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[5]) + "</td></tr>";
+            }
+            if (info[20] != null) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Total credit gap, US$, millions</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[20]) + "</td></tr>";
+            }
+            if (info[19] != null) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Total deposit gap, US$, millions</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[19]) + "</td></tr>";
             }
             if (info[10] != null) {
                 str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Access to finance as major/severe barrier</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[10]) + "%</td></tr>";
@@ -488,6 +502,12 @@ var models;
             var rowNum = 1;
             if (info[5] != null) {
                 str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>#MSMEs</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[5]) + "</td></tr>";
+            }
+            if (info[23] != null) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Total credit gap, US$, millions</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[23]) + "</td></tr>";
+            }
+            if (info[25] != null) {
+                str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Total deposit gap, US$, millions</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[25]) + "</td></tr>";
             }
             if (info[10] != null) {
                 str += "<tr class='" + ((rowNum++) % 2 == 1 ? "odd" : "even") + "' ><td><strong>Access to finance as major/severe barrier</strong></td><td style='text-align:right'>" + this.numberWithCommas(info[10]) + "%</td></tr>";
