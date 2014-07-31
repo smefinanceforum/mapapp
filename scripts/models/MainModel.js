@@ -316,12 +316,12 @@ var models;
                     case "served":
                         betta.index = 24;
                         betta.categories = ['Does not need credit', 'Unserved', 'Underserved', 'Well served'];
-                        betta.indexes = [10, 11, 12, 13];
+                        betta.indexes = [11, 12, 13, 14];
                         break;
                     case "source":
                         betta.index = 26;
                         betta.categories = ['Private Commercial Bank', 'State-owned Bank and/or Govt. Agency', 'Non-bank Financial Institution', 'Other'];
-                        betta.indexes = [14, 15, 16, 17];
+                        betta.indexes = [15, 16, 17, 18];
                         break;
                 }
             } else {
@@ -357,7 +357,7 @@ var models;
                     case "served":
                         betta.index = 32;
                         betta.categories = ['Does not need credit', 'Unserved', 'Underserved', 'Well served'];
-                        betta.indexes = [10, 11, 12, 13];
+                        betta.indexes = [11, 12, 13, 14];
                         break;
                     case "source":
                         betta.index = 34;
