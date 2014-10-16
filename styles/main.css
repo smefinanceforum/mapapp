@@ -103,9 +103,9 @@ body:before {
 }
 
 #ifc_logo {
-    width: 58px;
+    width: 270px;
     height: 53px;
-    background-image: url('../Content/ifc_logo.gif');
+    background-image: url('../Content/ifc_logo_new.jpg');
     background-repeat: no-repeat;
     float: right;
     cursor: pointer;
