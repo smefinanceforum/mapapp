@@ -219,6 +219,7 @@ var models;
             }
             data.summaryType('summary');
             data.onCountryChange(data, event);
+            $('#tabs').tabs("option", "active", 1);
             //data.summaryDialog.dialog("open");
         };
         MainModel.prototype.showInitSummaryDialog = function (data, event, country1, country2, country3) {
