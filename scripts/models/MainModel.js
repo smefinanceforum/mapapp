@@ -11,27 +11,45 @@ var models;
             this.bubbles = [];
             this.windows = [];
             this.ctaLayer = null;
-            this.kmlValue = ko.observable('');
+            this.kmlValue = ko.observable('IncomeLevel.kmz');
             this.indicatorStyleValue = ko.observable('bubble');
             this.chartIndicatorValue = ko.observable('account');
-            this.bubbleIndicatorValue = ko.observable('19');
+            this.bubbleIndicatorValue = ko.observable('creditgap');
             this.isChartSelectorVisible = ko.observable(false);
             this.isLegendVisible = ko.observable(false);
             //countries: KnockoutObservableArray<any> = ko.observableArray([]);
             this.countriesAndRegions = ko.observableArray([]);
             this.isExpanded = ko.observable(true);
-            this.selectedValues = ko.observableArray();
+            this.selectedValues = ko.observableArray([]);
             this.summaryType = ko.observable('summary');
             this.linkText = ko.observable('Show link to this page');
             this.isLinkVisible = ko.observable(false);
             var _this = this;
-
             _this.host = host;
             var countryParams = [_this.getUrlParameter('country1'), _this.getUrlParameter('country2'), _this.getUrlParameter('country3')];
-
+            var switchToSummary = false;
+            if (countryParams[0] == "null") {
+                countryParams[0] = 'Afghanistan';
+            }
+            else {
+                switchToSummary = true;
+            }
+            if (countryParams[1] == "null") {
+                countryParams[1] = 'MENA';
+            }
+            else {
+                switchToSummary = true;
+            }
+            if (countryParams[2] == "null") {
+                countryParams[2] = 'Developing Countries';
+            }
+            else {
+                switchToSummary = true;
+            }
             var mapOptions = {
-                zoom: 2,
-                center: new google.maps.LatLng(45.58329, 12.980347),
+                zoom: 3,
+                //center: new google.maps.LatLng(45.58329, 12.980347),
+                center: new google.maps.LatLng(0, 0),
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 streetViewControl: false,
                 panControl: false,
@@ -40,66 +58,52 @@ var models;
                 scrollwheel: false,
                 minZoom: 1
             };
-
             _this.map = new google.maps.Map($('#map-canvas')[0], mapOptions);
-
             google.maps.event.addListener(_this.map, 'zoom_changed', function () {
                 _this.zoomChanged(_this.map);
             });
-
             _this.getKml();
             _this.initiateBubbles(_this);
             _this.showBubbles(this.map.getZoom(), this.map);
-
             _this.countriesAndRegions.push(new models.SummaryItem(models.MsmeDevelopingData.rows, models.CountryIndicatorData.developmentCountries, 'development'));
             var regionRows = models.MsmeRegionData.rows;
-            regionRows.sort(function (left, right) {
-                return left[0] == right[0] ? 0 : (left[0] < right[0] ? -1 : 1);
-            });
+            regionRows.sort(function (left, right) { return left[0] == right[0] ? 0 : (left[0] < right[0] ? -1 : 1); });
             for (var i = 0; i < regionRows.length; i++) {
                 var c = new models.SummaryItem(regionRows[i], models.CountryIndicatorData.regionRows[regionRows[i][0]], 'region');
                 _this.countriesAndRegions.push(c);
             }
-
             var countryRows = models.MsmeData.rows;
-            countryRows.sort(function (left, right) {
-                return left[0] == right[0] ? 0 : (left[0] < right[0] ? -1 : 1);
-            });
+            countryRows.sort(function (left, right) { return left[0] == right[0] ? 0 : (left[0] < right[0] ? -1 : 1); });
             for (var i = 0; i < countryRows.length; i++) {
                 var c = new models.SummaryItem(countryRows[i], models.CountryIndicatorData.rows[countryRows[i][1]], 'country');
-
                 //_this.countries.push(c);
                 _this.countriesAndRegions.push(c);
             }
-
             //_this.countries.sort(function (left, right) { return left.Name == right.Name ? 0 : (left.Name < right.Name ? -1 : 1) });
             //_this.countriesAndRegions.sort(function (left, right) { return left.Name == right.Name ? 0 : (left.Name < right.Name ? -1 : 1) });
-            $('#scrollablePart').height($(window).height() - 110);
-            _this.summaryDialog = $('#summary').dialog({
-                autoOpen: false,
-                modal: true,
-                height: $(window).height() - 50,
-                width: 1000,
-                dialogClass: 'noTitleDialog'
-            });
-
+            //$('#scrollablePart').height($(window).height() - 110);
+            $('#tabs').tabs();
+            //_this.summaryDialog = $('#summary').dialog({
+            //    autoOpen: false,
+            //    modal: true,
+            //    height: $(window).height() - 50,
+            //    width: 1000,
+            //    dialogClass: 'noTitleDialog'
+            //});
             _this.createCharts(_this);
-
             for (var i = 0; i < 3; i++) {
                 this.selectedValues.push(ko.observable(new models.SummaryItem(null, null, 'empty')));
             }
-
-            if (countryParams[0] != "null") {
-                _this.showInitSummaryDialog(_this, null, countryParams[0], countryParams[1], countryParams[2]);
+            _this.showInitSummaryDialog(_this, null, countryParams[0], countryParams[1], countryParams[2]);
+            if (switchToSummary) {
+                $("#tabs").tabs("option", "active", 1);
             }
-
             _this.shortPanelText = ko.computed(function () {
                 var b = _this.bubbleIndicatorValue();
                 var c = _this.chartIndicatorValue();
                 var k = _this.kmlValue();
                 return '<strong>Layer:</strong> ' + $('#colorIndicator option:selected').text() + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Indicator:</strong>' + (!_this.isChartSelectorVisible() ? $('#bubbleIndicator option:selected').text() : $('#chartIndicator option:selected').text());
             });
-
             _this.link = ko.computed(function () {
                 return _this.host + '?country1=' + encodeURIComponent(_this.selectedValues()[0]().Name) + '&country2=' + encodeURIComponent(_this.selectedValues()[1]().Name) + '&country3=' + encodeURIComponent(_this.selectedValues()[2]().Name);
             });
@@ -107,20 +111,18 @@ var models;
         MainModel.prototype.getUrlParameter = function (name) {
             return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]);
         };
-
         MainModel.prototype.showLink = function (data) {
             if (data.isLinkVisible()) {
                 data.linkText('Show link to this page');
-            } else {
+            }
+            else {
                 data.linkText('Hide');
             }
             data.isLinkVisible(!data.isLinkVisible());
         };
-
-        MainModel.prototype.closeSummary = function (data) {
-            data.summaryDialog.dialog('close');
-        };
-
+        //closeSummary(data: MainModel) {
+        //    data.summaryDialog.dialog('close');
+        //}
         MainModel.prototype.createCharts = function (data) {
             $('#accountChart').highcharts({
                 chart: { type: 'column' },
@@ -137,9 +139,7 @@ var models;
                 credits: { enabled: false },
                 tooltip: { valueSuffix: "%" }
             });
-
             data.accChart = $('#accountChart').highcharts();
-
             $('#serviceChart').highcharts({
                 chart: { type: 'column' },
                 //colors: ['#762A83', '#9970AB', '#C2A5CF'],
@@ -155,9 +155,7 @@ var models;
                 credits: { enabled: false },
                 tooltip: { valueSuffix: "%" }
             });
-
             data.srvChart = $('#serviceChart').highcharts();
-
             $('#sourceChart').highcharts({
                 chart: { type: 'column' },
                 //colors: ['#762A83', '#9970AB', '#C2A5CF'],
@@ -173,10 +171,8 @@ var models;
                 credits: { enabled: false },
                 tooltip: { valueSuffix: "%" }
             });
-
             data.srcChart = $('#sourceChart').highcharts();
         };
-
         MainModel.prototype.changeSelectedCountry = function (data, event) {
             data.selectedValues()[0]().updateCharts(data.accChart.series[0], data.srvChart.series[0], data.srcChart.series[0]);
             data.selectedValues()[1]().updateCharts(data.accChart.series[1], data.srvChart.series[1], data.srcChart.series[1]);
@@ -185,7 +181,6 @@ var models;
             data.srvChart.redraw();
             data.srcChart.redraw();
         };
-
         MainModel.prototype.onCountryChange = function (data, event) {
             if (data.summaryType() == 'summary') {
                 var c = null, d = null;
@@ -198,23 +193,13 @@ var models;
                     if (r.Name == 'Developing Countries') {
                         data.selectedValues()[2](r);
                     }
-                    //if (r.type == 'region' || r.type == 'development') {
-                    //    data.countries.remove(r);
-                    //}
                 }
-            } else {
-                //for (var i = 0; i < data.countriesAndRegions().length; i++) {
-                //    var r = data.countriesAndRegions()[i];
-                //    if (r.type == 'region' || r.type == 'development') {
-                //        data.countries.push(r);
-                //    }
-                //}
             }
-
+            else {
+            }
             data.changeSelectedCountry(data, event);
             return true;
         };
-
         MainModel.prototype.showSummaryDialog = function (data, event, country) {
             if (country != undefined) {
                 var c = $.grep(data.countriesAndRegions(), function (e, i) {
@@ -223,7 +208,8 @@ var models;
                 if (c.length > 0) {
                     data.selectedValues()[0](c[0]);
                 }
-            } else {
+            }
+            else {
                 var c = $.grep(data.countriesAndRegions(), function (e, i) {
                     return e.Name == 'Afghanistan';
                 });
@@ -233,9 +219,8 @@ var models;
             }
             data.summaryType('summary');
             data.onCountryChange(data, event);
-            data.summaryDialog.dialog("open");
+            //data.summaryDialog.dialog("open");
         };
-
         MainModel.prototype.showInitSummaryDialog = function (data, event, country1, country2, country3) {
             var c1 = $.grep(data.countriesAndRegions(), function (e, i) {
                 return e.Name == country1;
@@ -251,38 +236,42 @@ var models;
             data.selectedValues()[2](c3[0]);
             data.summaryType('compare');
             data.onCountryChange(data, event);
-            data.summaryDialog.dialog("open");
+            //data.summaryDialog.dialog("open");
         };
-
         MainModel.prototype.showSelectors = function () {
-            this.isChartSelectorVisible(this.indicatorStyleValue() == "chart");
-
-            //if (this.map.getZoom() > 3) {
+            if (this.bubbleIndicatorValue() == "account" || this.bubbleIndicatorValue() == "served" || this.bubbleIndicatorValue() == "source") {
+                this.isChartSelectorVisible(true);
+                this.chartIndicatorValue(this.bubbleIndicatorValue());
+                this.showLegend();
+            }
+            else {
+                this.isChartSelectorVisible(false);
+                $('div[id*="legend"]').hide();
+            }
+            //debugger;
             this.showBubbles(this.map.getZoom(), this.map);
-            //}
         };
-
         MainModel.prototype.showLegend = function () {
             $('div[id*="legend"]').hide();
             var val = this.chartIndicatorValue();
+            //var val = this.bubbleIndicatorValue();
             $('div[id="legend' + val + '"]').show();
         };
-
         MainModel.prototype.expandMenu = function (data) {
             data.isExpanded(!data.isExpanded());
         };
-
         MainModel.prototype.showBubbles = function (zoom, map) {
             //var selector = $('#bubbleIndicator');
             var _this = this;
             var selectedText = $('#bubbleIndicator option:selected').text();
-            var isCountry = (zoom > 3);
+            var isCountry = (zoom > 2);
             var id = this.bubbleIndicatorValue();
-            var isBubble = (this.indicatorStyleValue() == "bubble");
+            var isBubble = (!this.isChartSelectorVisible());
+            debugger;
             var chartData = this.chartIndicatorValue();
             var alpha = {};
             var betta = {};
-            var scaledZoom = isCountry ? zoom - 3 : zoom;
+            var scaledZoom = isCountry ? zoom - 2 : zoom;
             if (isCountry) {
                 switch (id) {
                     case "creditgap":
@@ -306,7 +295,6 @@ var models;
                         alpha.value = 50 / 200;
                         break;
                 }
-
                 switch (chartData) {
                     case "account":
                         betta.index = 22;
@@ -324,7 +312,8 @@ var models;
                         betta.indexes = [15, 16, 17, 18];
                         break;
                 }
-            } else {
+            }
+            else {
                 switch (id) {
                     case "creditgap":
                         alpha.index = 23;
@@ -347,7 +336,6 @@ var models;
                         alpha.value = 50 / 100;
                         break;
                 }
-
                 switch (chartData) {
                     case "account":
                         betta.index = 30;
@@ -366,7 +354,6 @@ var models;
                         break;
                 }
             }
-
             for (var i = 0; i < this.bubbles.length; i++) {
                 var bubble = this.bubbles[i];
                 if ((bubble.bubbleType != "country" && isCountry) || (bubble.bubbleType != "region" && !isCountry)) {
@@ -378,41 +365,37 @@ var models;
                         fillOpacity: 1,
                         fillColor: '#E6550D',
                         strokeOpacity: 0,
-                        scale: alpha.value * parseInt(bubble.data[alpha.index]) + scaledZoom * 4
+                        scale: alpha.value * parseInt(bubble.data[alpha.index]) + scaledZoom * 4 //pixels
                     });
                     if (alpha.index != undefined && bubble.data != undefined) {
                         bubble.setTitle(selectedText + ": " + _this.numberWithCommas(id == "gap" ? bubble.data[alpha.index] : bubble.data[alpha.index]));
                     }
-                } else {
+                }
+                else {
                     bubble.setIcon({
                         url: this.host + "images/" + chartData + "/" + bubble.data[1] + ".png",
                         scaledSize: new google.maps.Size(bubble.data[betta.index - 1] / 4 * scaledZoom, bubble.data[betta.index] / 4 * scaledZoom)
                     });
                     bubble.setTitle(sprintf('%s: %s%%\n%s: %s%%\n%s: %s%%\n%s: %s%%\n', betta.categories[3], bubble.data[betta.indexes[3]], betta.categories[2], bubble.data[betta.indexes[2]], betta.categories[1], bubble.data[betta.indexes[1]], betta.categories[0], bubble.data[betta.indexes[0]]));
                 }
-
                 bubble.setMap(map);
             }
         };
-
         MainModel.prototype.hideBubbles = function () {
             for (var i = 0; i < this.bubbles.length; i++) {
                 var bubble = this.bubbles[i];
                 bubble.setMap(null);
             }
         };
-
         MainModel.prototype.zoomChanged = function (map) {
             var zoomLevel = map.getZoom();
             this.hideBubbles();
             this.showBubbles(zoomLevel, map);
         };
-
         MainModel.prototype.getKml = function () {
             if (this.ctaLayer != null) {
                 this.ctaLayer.setMap(null);
             }
-
             if (this.kmlValue() != '') {
                 this.ctaLayer = new google.maps.KmlLayer(this.host + "indicators/" + this.kmlValue(), {
                     preserveViewport: true,
@@ -420,17 +403,13 @@ var models;
                 });
                 this.ctaLayer.setMap(this.map);
             }
-
             return true;
         };
-
         MainModel.prototype.numberWithCommas = function (x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         };
-
         MainModel.prototype.getCountryInfo = function (info) {
             var str = "<h2>" + info[0] + "</h2><a href='#' id='link" + info[1] + "' data-bind='click : function(data, event) { showSummaryDialog(data, event, \"" + info[0] + "\") }'>Show Summary</a><table>";
-
             //console.log(info[0] + ":" + models.CountryRegionMap.map[info[0]]);
             var rowNum = 1;
             if (info[5] != null) {
@@ -491,13 +470,10 @@ var models;
                 }
             }
             str += "</table>";
-
             return str;
         };
-
         MainModel.prototype.getRegionInfo = function (info) {
             var str = "<h2>" + info[0] + "</h2><a href='#' id='link" + info[1] + "' data-bind='click : function(data, event) { showSummaryDialog(data, event, \"" + info[0] + "\") }'>Show Summary</a><table>";
-
             //console.log(info[0] + ":" + models.CountryRegionMap.map[info[0]]);
             var rowNum = 1;
             if (info[5] != null) {
@@ -563,7 +539,6 @@ var models;
             }
             return str;
         };
-
         MainModel.prototype.initiateBubbles = function (main) {
             if (this.bubbles.length == 0) {
                 for (var i = 0; i < models.MsmeData.rows.length + models.MsmeRegionData.rows.length; i++) {
@@ -575,22 +550,18 @@ var models;
                             bubbleType: isCountry ? "country" : "region",
                             data: info
                         });
-
                         var infowindow = new google.maps.InfoWindow({
                             content: isCountry ? main.getCountryInfo(info) : main.getRegionInfo(info)
                         });
-
                         google.maps.event.addListener(bubble, 'click', function () {
                             for (var j = 0; j < main.windows.length; j++) {
                                 main.windows[j].close();
                             }
                             main.windows[i].open(main.map, main.bubbles[i]);
                         });
-
                         google.maps.event.addListener(infowindow, 'domready', function () {
                             ko.applyBindings(main, $("#link" + info[1])[0]);
                         });
-
                         main.bubbles.push(bubble);
                         main.windows.push(infowindow);
                     })(i);
