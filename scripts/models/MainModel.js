@@ -24,6 +24,7 @@ var models;
             this.summaryType = ko.observable('summary');
             this.linkText = ko.observable('Show link to this page');
             this.isLinkVisible = ko.observable(false);
+            this.legend = ko.observable({});
             var _this = this;
             _this.host = host;
             var countryParams = [_this.getUrlParameter('country1'), _this.getUrlParameter('country2'), _this.getUrlParameter('country3')];
@@ -268,7 +269,6 @@ var models;
             var isCountry = (zoom > 2);
             var id = this.bubbleIndicatorValue();
             var isBubble = (!this.isChartSelectorVisible());
-            debugger;
             var chartData = this.chartIndicatorValue();
             var alpha = {};
             var betta = {};
@@ -403,6 +403,7 @@ var models;
                     screenOverlays: this.isLegendVisible()
                 });
                 this.ctaLayer.setMap(this.map);
+                this.legend(models.KmlLegendData.rows[this.kmlValue()]);
             }
             return true;
         };
